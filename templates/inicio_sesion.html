@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+foodrosif!
+{% endblock %}
+
+{% block contenido %}
+
+
+
+
+
+<div class="login" id="general">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <center>
+                    <h1>FOODROSIF!</h1>
+                </center>
+            </div>
+            <div class="col-sm">
+                <center>
+                    <h3>Iniciar sesion</h3>
+                </center>
+                <div class="flash">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <ul class="alert alert-danger">
+                        {% for message in messages %}
+                        <li>{{message}}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                </div>
+
+                <form action="{{ url_for('login') }}" method="POST" class="form-group">
+                    <input type="email" class="form-control" name="email" placeholder="email" id="email">
+                    <input type="password" class="form-control" name="password" placeholder="password"
+                        id="password">
+                    <div class="msg">{{ msg }}</div>
+                    <center>
+                        <button type="submit" class="btn btn-primary">login</button><br>
+                        <a href="{{ url_for('registerEmpresa') }}">Registrar Cuenta</a>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
+
+{% endblock %}
