@@ -41,7 +41,7 @@ def login():
 
         cursor = db.cursor(dictionary=True)
         cursor.execute(
-            "SELECT * FROM usuarios WHERE email = %s AND contraseña = %s",
+            "SELECT * FROM usuarios WHERE email = %s AND contraseña = %s AND confirmacion='1'",
             (
                 email,
                 password,
