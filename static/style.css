@@ -1,27 +1,71 @@
-*{
-
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root{
+    --color-dark: #15181f;
+    --color-dark-x: #2d343f;
+    --color-dark-xx: #1f232b;
+    --color-light: #ffffff;
+    --color-grey: #f5f6fB; 
 }
 
-.body {
-    background-color:rgb(100, 206, 171);
-    /*background-image: url('fondo/43038.jpg');*/
+body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 380;
+    background-color: var(--color-grey);
+    color: var(--color-light);
+    letter-spacing: .05rem;
 }
-/*
-.seccion-1{
-    background-image: url('fondo/43038.jpg');
-    background-position-y: 100%;
-    background-repeat: no-repeat;
+
+.bg-light{
+    background-color: var(--color-light) !important;
+}
+
+.bg-dark{
+    background-color: var(--color-dark) !important;
+}
+
+.p-6{
+    padding: 4rem 7rem;
+}
+
+.contact-box{
+    padding: 3rem;
+}
+
+.btn{
+    font-weight: 380;
+    padding: 1rem 1rem;
+    border-radius: 4rem;
+    min-width: 15rem;
+}
+
+.btn-outline-dark{
+    border:  2px solid var(--color-dark-xx);
+}
+
+.form-control{
+    background-color: var(--color-dark-xx);
+    border: 2px solid var(--color-dark-xx);
+    border-radius: .2rem;
+    padding: 1.5rem 1rem;
+}
+
+.register-bg {
+    background-image: url(/static/mandibula3.png);
     background-size: cover;
-    ba
+    background-repeat: no-repeat;
+    min-height: 90vh;
 }
-*/
-button{
-    /*border-radius: 30px !important;*/
-    font-size: 18px !important;
+
+.testimonial{
+    bottom: 10px;
 }
+
+
+
+
+
+
+
 
 .flash{
     margin: 0 auto;
