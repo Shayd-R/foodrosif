@@ -35,9 +35,9 @@ foodrosif!
                 </div>
 
                 <form action="{{ url_for('login') }}" method="POST" class="form-group">
-                    <input type="email" class="form-control" name="email" placeholder="email" id="email">
-                    <input type="password" class="form-control" name="password" placeholder="password"
-                        id="password">
+                    <input type="email" class="form-control" name="email" placeholder="Correo electronico" value="{{email}}">
+                    <input type="password" class="form-control" name="password" placeholder="Contraseña"
+                        value="{{password}}">
                     <div class="msg">{{ msg }}</div>
                     <center>
                         <button type="submit" class="btn btn-primary">login</button><br>

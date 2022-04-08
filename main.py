@@ -37,14 +37,14 @@ def login():
 
         email = request.form["email"]
         password = request.form["password"]
-        password = sha256(password.encode("utf-8")).hexdigest()
+        passwordencriptada = sha256(password.encode("utf-8")).hexdigest()
 
         cursor = db.cursor(dictionary=True)
         cursor.execute(
             "SELECT * FROM usuarios WHERE email = %s AND contraseña = %s AND confirmacion='1'",
             (
                 email,
-                password,
+                passwordencriptada,
             ),
         )
 
@@ -57,10 +57,15 @@ def login():
             session["email"] = cuenta["email"]
             return "¡Has iniciado sesión con éxito!"
         else:
-
             flash("¡Nombre de usuario/contraseña incorrectos!")
+            return render_template(
+                "inicioSesion.html",
+                email=email,
+                password=password,
+            )    
+            
 
-    return render_template("inicio_sesion.html")
+    return render_template("inicioSesion.html")
 
 
 # ===============================================================================================================================
@@ -156,60 +161,60 @@ def registerEmpresa():
 
         if is_valid == False:
             return render_template(
-                "Registro-empresa.html",
+                "registroEmpresa.html",
                 nombre=nombre,
                 descripcion=descripcion,
                 celular=celular,
                 direccion=direccion,
                 email=email,
                 password=password,
-            )
-        else:
-            password = sha256(password.encode("utf-8")).hexdigest()
-            cursor.execute(
-                "INSERT INTO empresas(nombre, descripcion, celular, direccion) VALUES (%s, %s, %s, %s)",
-                (
-                    nombre,
-                    descripcion,
-                    celular,
-                    direccion,
-                ),
-            )
-            cursor.execute("SELECT * FROM empresas ORDER BY id_empresa DESC LIMIT 1 " )
-            row=cursor.fetchone()
-            if row is not None:
-                row = row["id_empresa"]
-            print(row)
+            )            
+        
 
-            cursor.execute(
-                "INSERT INTO usuarios(email, contraseña, id_empresa) VALUES (%s, %s, %s)",
-                (
-                    email,
-                    password,
-                    row,
-                ),
-            )
-            #cursor.commit()
-            cursor.close()
-            msg = EmailMessage()
-            msg.set_content("Confirmar tu correo aqui: {} ".format(link))
-            msg["Subject"] = "Registro en Foodrosif"
-            msg["From"] = "shaydruano2020@itp.edu.co"
-            msg["To"] = email
-            username = "shaydruano2020@itp.edu.co"
-            password = "1006663258"  # ==================================================================
-            server = SMTP("smtp.gmail.com:587")
-            server.starttls()
-            server.login(username, password)
-            server.send_message(msg)
-            server.quit()
-            flash("¡Te has registrado con éxito!")
+        password = sha256(password.encode("utf-8")).hexdigest()
+        cursor.execute(
+            "INSERT INTO empresas(nombre, descripcion, celular, direccion) VALUES (%s, %s, %s, %s)",
+            (
+                nombre,
+                descripcion,
+                celular,
+                direccion,
+            ),
+        )
+        cursor.execute("SELECT * FROM empresas ORDER BY id_empresa DESC LIMIT 1 " )
+        row=cursor.fetchone()
+        if row is not None:
+            row = row["id_empresa"]
+        print(row)
+        cursor.execute(
+            "INSERT INTO usuarios(email, contraseña, id_empresa) VALUES (%s, %s, %s)",
+            (
+                email,
+                password,
+                row,
+            ),
+        )
+        #cursor.commit()
+        cursor.close()
+        msg = EmailMessage()
+        msg.set_content("Confirmar tu correo aqui: {} ".format(link))
+        msg["Subject"] = "Registro en Foodrosif"
+        msg["From"] = "shaydruano2020@itp.edu.co"
+        msg["To"] = email
+        username = "shaydruano2020@itp.edu.co"
+        password = "1006663258"  # ==================================================================
+        server = SMTP("smtp.gmail.com:587")
+        server.starttls()
+        server.login(username, password)
+        server.send_message(msg)
+        server.quit()
+        flash("¡Te has registrado con éxito!")
 
     elif request.method == "POST":
 
         flash("¡Por favor llene el formulario!")
 
-    return render_template("Registro-empresa.html")
+    return render_template("registroEmpresa.html")
 
 
 # ===========================================================================================================================================
